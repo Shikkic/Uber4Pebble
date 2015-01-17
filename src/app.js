@@ -16,6 +16,20 @@ var main = new UI.Card({
   body: 'Press select to order an Uber X.'
 });
 
+var longitude = 0;
+var latitude = 0;
+var data = {};
+
+function getLocation() {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			longitude = position.coords.longitude;
+			latitude = position.coords.latitude;
+			console.log(longitude,latitude);
+            data = {"longitude": longitude, "latitude": latitude};
+            console.log("DATA FILES IN GEO FUNCTION:"+ JSON.stringify(data));
+        });
+}            
+
 main.show();
 
 main.on('click', 'select', function(e) {
@@ -35,6 +49,7 @@ main.on('click', 'select', function(e) {
     });
     */
     //menu.show();
+    
     Vibe.vibrate('long');
     var wind = new UI.Window();
     var textfield = new UI.Text({
@@ -48,13 +63,16 @@ main.on('click', 'select', function(e) {
     wind.add(textfield);
     wind.show();
     
+    getLocation();
     
-    var butt = {"test": "ok"};
+    console.log("This is the data:"+ data);
+                
+    //var butt = {"test": "ok"};
         ajax({
             method: 'post',
             type: 'json',
             url: 'http://uberme.cloudapp.net/api/test',
-            data: butt,
+            data: data,
         },
         function(success){
             console.log("it worked!");  
@@ -63,7 +81,7 @@ main.on('click', 'select', function(e) {
             console.log("it didn't work here's why: " + error);
         }
       );
-    /*
+    
     wind.on('click', 'down', function(e) {
         var card = new UI.Card();
         card.title('Cancel');
@@ -79,5 +97,5 @@ main.on('click', 'select', function(e) {
             newCard.body('Thanks for using Uber for pebble anyway!');
         });
     });
-    */
+    
 });
