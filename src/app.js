@@ -26,7 +26,7 @@ main.on('click', 'select', function(e) {
         position: new Vector2(0, 50),
         size: new Vector2(144, 30),
         font: 'gothic-18-bold',
-        title: 'An uber is on your way!',
+        text: 'An uber is on your way!',
         textAlign: 'center'
     });
     
