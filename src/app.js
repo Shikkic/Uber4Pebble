@@ -19,7 +19,22 @@ var main = new UI.Card({
 main.show();
 
 main.on('click', 'select', function(e) {
-  
+    /*
+    var menu = new UI.Menu({
+    sections: [{
+        title: 'UBER MENU',
+        items: [{
+            title: 'Order Uber',
+            icon: 'images/item_icon.png'
+        }, {
+            title: 'Cancel Uber',
+        }, {
+            title: "help I'm a pleeb",
+        }]
+    }]
+    });
+    */
+    //menu.show();
     Vibe.vibrate('long');
     var wind = new UI.Window();
     var textfield = new UI.Text({
@@ -32,6 +47,7 @@ main.on('click', 'select', function(e) {
     
     wind.add(textfield);
     wind.show();
+    
     
     var butt = {"test": "ok"};
         ajax({
@@ -47,7 +63,7 @@ main.on('click', 'select', function(e) {
             console.log("it didn't work here's why: " + error);
         }
       );
-    
+    /*
     wind.on('click', 'down', function(e) {
         var card = new UI.Card();
         card.title('Cancel');
@@ -63,4 +79,5 @@ main.on('click', 'select', function(e) {
             newCard.body('Thanks for using Uber for pebble anyway!');
         });
     });
+    */
 });
