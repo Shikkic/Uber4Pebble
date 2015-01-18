@@ -66,8 +66,7 @@ main.on('click', 'select', function(e) {
     getLocation();
     
     console.log("This is the data:"+ data);
-                
-    //var butt = {"test": "ok"};
+        // Send post request to my server        
         ajax({
             method: 'post',
             type: 'json',
@@ -90,11 +89,10 @@ main.on('click', 'select', function(e) {
         card.show();
       
         card.on('click', 'select', function(e){
+            Vibe.vibrate('long');    
             card.hide();
-            Vibe.vibrate('long');      
-            var newCard = new UI.Card();
-            newCard.title("RIDE CANCLED");
-            newCard.body('Thanks for using Uber for pebble anyway!');
+            wind.hide();
+            // Cancel Uber Post request
         });
     });
     
