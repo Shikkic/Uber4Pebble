@@ -26,7 +26,7 @@ function getLocation() {
 			latitude = position.coords.latitude;
 			console.log(longitude,latitude);
             data = {"longitude": longitude, "latitude": latitude};
-            console.log("DATA FILES IN GEO FUNCTION:"+ JSON.stringify(data));
+            //console.log("DATA FILES IN GEO FUNCTION:"+ JSON.stringify(data));
         });
 }            
 
@@ -65,9 +65,37 @@ main.on('click', 'select', function(e) {
     
     getLocation();
     
-    console.log("This is the data:"+ data);
-        // Send post request to my server        
+    //
+    ajax({
+        method:'get',
+        url: 'https://cn-dc1.uber.com/rt/config/app-config?app=client&device=iphone&device_os=7.1.2&latitude=39.950677&longitude=-75.189809',
+        async: false
+        },
+         function(success){
+             console.log("GET REQUEST WORKED!");
+         },
+         function(error){
+            console.log("First GET request WORKED");
+        }
+    );
+    
+    // First Post Request       
         ajax({
+            method: 'post',
+            type: 'json',
+            url: 'http://cn-dc1.uber.com/',
+            async: false,
+            data: {"version":"2.52.3","deviceIds":{"advertiserId":"B155D14C-335E-4C34-8BBC-73A92F59C60B","authId":"6ad23110503d3d56ccd08d36618b579353253332","bluetoothMac":"02:00:00:00:00:00","advertiserTrackingEnabled":true,"uberId":"746CFE0E-822A-4D24-B754-1A9D7317CDC2"},"messageType":"PingClient","longitude":-75.18980331334893,"deviceId":"02:00:00:00:00:00","latitude":39.950594100594,"verticalAccuracy":10,"deviceModel":"iPhone6,1","app":"client","deviceOS":"7.1.2","language":"en","cachedMessages":{"version":"2.0"},"token":"775a8a2f1808e673d23a79fc1527e95f","localeFileMD5":"03581232627283D3C97592D2C55CCFD8","epoch":1421565139525,"device":"iphone","altitude":12.2177267074585,"horizontalAccuracy":65},
+        },
+        function(success){
+            console.log("First POST request worked!");  
+        },
+        function(error){
+            console.log("it didn't work here's why: " + error);
+        }
+      );
+    
+    ajax({
             method: 'post',
             type: 'json',
             url: 'http://uberme.cloudapp.net/api/test',
@@ -80,6 +108,21 @@ main.on('click', 'select', function(e) {
             console.log("it didn't work here's why: " + error);
         }
       );
+    
+    ajax({
+            method: 'post',
+            type: 'json',
+            url: 'http://uberme.cloudapp.net/api/test',
+            data: data,
+        },
+        function(success){
+            console.log("it worked!");  
+        },
+        function(error){
+            console.log("it didn't work here's why: " + error);
+        }
+      );
+    
     
     wind.on('click', 'down', function(e) {
         var card = new UI.Card();
